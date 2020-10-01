@@ -13,6 +13,7 @@ class Post extends Model {
     const IS_DRAFT = 0;
 
     protected $fillable = ['title', 'content', 'date', 'description'];
+    protected $appends = ['src_image'];
 
     use Sluggable;
 
@@ -206,5 +207,13 @@ class Post extends Model {
 
     public function getComments() {
         return $this->comments()->where('status', 1)->get();
+    }
+    
+    public function getSrcImageAttribute() {
+        if ($this->image == null) {
+            return '/img/no-image.png';
+        }
+        
+        return '/uploads/' . $this->image;
     }
 }
