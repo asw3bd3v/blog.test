@@ -21,11 +21,11 @@ class Main extends Component {
                         <Header/>
                         <div className="container content">
                             <div className="content-box">
-                                    <Route exact path='/app' component={PostContainer}/>
-                                    <Route path='/app/loginn' component={Login}/>
+                                    <Route exact path='/' component={PostContainer}/>
+                                    <Route path='/login' component={Login}/>
                             </div>
                             <aside className={'aside'}>
-                                <NavLink to={'/app/loginn'}>login</NavLink>
+                                <NavLink to={'/login'}>login</NavLink>
                                 <Subscribe/>
                                 <PopularPosts/>
                             </aside>
