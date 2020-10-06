@@ -11,16 +11,16 @@
   |
  */
 
-Route::get('/', 'HomeController@index');
+Route::get('/', function () {
+    return view('app');
+});
+
+Route::get('/home', 'HomeController@index');
 Route::get('/post/{slug}', 'HomeController@show')->name('post.show');
 Route::get('/tag/{slug}', 'HomeController@tag')->name('tag.show');
 Route::get('/category/{slug}', 'HomeController@category')->name('category.show');
 Route::post('/subscribe', 'SubsController@subscribe');
 Route::get('/verify/{token}', 'SubsController@verify');
-
-Route::get('/app', function () {
-    return view('app');
-});
 
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/logout', 'AuthController@logout');
