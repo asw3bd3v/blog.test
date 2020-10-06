@@ -1,4 +1,4 @@
 require('./bootstrap');
 
 /* Import the Main component */
-import Main from './components/Main';
+import MainContainer from './components/Main';

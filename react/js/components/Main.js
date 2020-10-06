@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import './main.css'
 import Header from "./Header/Header";
-import {BrowserRouter, Route} from "react-router-dom";
-import Content from "./Content/Content";
-import {Provider} from "react-redux";
+import {BrowserRouter, NavLink, Route, withRouter} from "react-router-dom";
+import {connect, Provider} from "react-redux";
 import store from "../redux/redux-store";
 import Subscribe from "./Subscribe/Subscribe";
 import PopularPosts from "./Content/Posts/PopularPosts/PopularPosts";
 import PostContainer from "./Content/Posts/PostContainer";
 import Login from "./Login/Login";
+import {compose} from "redux";
 
 /* An example React component */
 class Main extends Component {
@@ -21,11 +21,11 @@ class Main extends Component {
                         <Header/>
                         <div className="container content">
                             <div className="content-box">
-                                <Route path='/' render={() => <PostContainer/>} />
-                                <Route path='/app/login' render={() => <Login/>} />
-
+                                    <Route exact path='/app' component={PostContainer}/>
+                                    <Route path='/app/loginn' component={Login}/>
                             </div>
                             <aside className={'aside'}>
+                                <NavLink to={'/app/loginn'}>login</NavLink>
                                 <Subscribe/>
                                 <PopularPosts/>
                             </aside>
@@ -36,8 +36,14 @@ class Main extends Component {
         );
     }
 }
+const mapStateToProps = (state) => ({
 
-export default Main;
+});
+let MainContainer = compose(
+    withRouter,
+    connect({}, {}))(Main);
+
+export default MainContainer;
 
 /* The if statement is required so as to Render the component on pages that have a div with an ID of "root";
 */
