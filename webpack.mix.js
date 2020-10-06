@@ -61,6 +61,6 @@ mix.react('react/js/app.js', 'public/react/js')
         .sass('react/sass/app.scss', 'public/react/css');
 
 mix.browserSync({
-    proxy: 'http://blog.test/app',
+    proxy: 'http://blog.test/',
     files: "./react/**/*.*"
 });
