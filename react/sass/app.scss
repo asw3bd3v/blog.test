@@ -31,6 +31,25 @@ li {
 }
 body{
     background-color: #F4F4F4;
+    font-size: 16px;
+    color: #000;
+    font-family: 'Open Sans', sans-serif;
+}
+
+h2{
+    font-size: 2rem;
+}
+button{
+    padding: 5px 15px;
+    text-transform: uppercase;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border: none;
+    transition: background-color .3s;
+    &:hover{
+        background-color: #00BFF3;
+    }
 }
 .header-wrapper{
     background-color: #fff;
@@ -123,6 +142,21 @@ body{
                     fill: #fff;
                 }
             }
+        }
+    }
+}
+.form{
+    input[type='text'],
+    input[type='password']{
+        width: 100%;
+        padding: 5px 10px;
+        border: 1px solid #eee;
+        margin-bottom: 10px;
+    }
+    .remember-me{
+        display: flex;
+        input{
+            margin-right: 5px;
         }
     }
 }

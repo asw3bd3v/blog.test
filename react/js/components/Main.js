@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import './main.css'
 import Header from "./Header/Header";
-import {BrowserRouter, NavLink, Route, withRouter} from "react-router-dom";
+import {HashRouter, Route, Switch, withRouter} from "react-router-dom";
 import {connect, Provider} from "react-redux";
 import store from "../redux/redux-store";
 import Subscribe from "./Subscribe/Subscribe";
@@ -10,35 +10,41 @@ import PopularPosts from "./Content/Posts/PopularPosts/PopularPosts";
 import PostContainer from "./Content/Posts/PostContainer";
 import Login from "./Login/Login";
 import {compose} from "redux";
+import Registration from "./Login/Registration";
+import AddPost from "./AddPost/AddPost";
 
 /* An example React component */
 class Main extends Component {
     render() {
         return (
-            <BrowserRouter>
+            <HashRouter>
                 <Provider store={store}>
                     <div>
                         <Header/>
                         <div className="container content">
                             <div className="content-box">
-                                    <Route exact path='/' component={PostContainer}/>
-                                    <Route path='/login' component={Login}/>
+                                <Switch>
+                                    {/*<Route path='/' render={() => <PostContainer />}/>*/}
+                                    <Route exact path='/' render={() => <PostContainer/>}/>
+                                    <Route path='/login' render={() => <Login/>}/>
+                                    <Route path={'/register'} render={() => <Registration/>}></Route>
+                                    <Route path={'/addpost'} render={() => <AddPost/>}></Route>
+                                    <Route path={'*'} render={() => <h2>404 Not Found</h2>}></Route>
+                                </Switch>
                             </div>
                             <aside className={'aside'}>
-                                <NavLink to={'/login'}>login</NavLink>
                                 <Subscribe/>
                                 <PopularPosts/>
                             </aside>
                         </div>
                     </div>
                 </Provider>
-            </BrowserRouter>
+            </HashRouter>
         );
     }
 }
-const mapStateToProps = (state) => ({
 
-});
+const mapStateToProps = (state) => ({});
 let MainContainer = compose(
     withRouter,
     connect({}, {}))(Main);
