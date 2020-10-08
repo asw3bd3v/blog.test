@@ -22,12 +22,15 @@
         "vue": "^2.6.12"
     },
     "dependencies": {
+        "@material-ui/core": "^4.11.0",
         "babel-preset-react": "^6.24.1",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
         "react-icons": "^3.11.0",
         "react-redux": "^7.2.1",
         "react-router-dom": "^5.2.0",
+        "react-select": "^3.1.0",
+        "react-widgets": "^5.0.0-beta.21",
         "redux": "^4.0.5",
         "redux-form": "^8.3.6",
         "redux-thunk": "^2.3.0"
