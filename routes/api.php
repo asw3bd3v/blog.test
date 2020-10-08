@@ -21,6 +21,11 @@ use Illuminate\Http\Request;
 Route::group([
     'namespace' => 'Api',
         ], function() {
-    Route::get('posts', 'PostController@index');
+    Route::put('posts/update/{id}', 'PostController@update');
+    Route::post('posts/store/', 'PostController@store');
     Route::get('posts/{id}', 'PostController@show');
+    Route::get('posts', 'PostController@index');
+    
+    Route::get('categories', 'CategoriesController@index');
+    Route::get('tags', 'TagsController@index');
 });
