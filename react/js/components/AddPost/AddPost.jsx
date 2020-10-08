@@ -1,26 +1,22 @@
 import React from 'react';
-import {Input, SelectCustom, SelectMulti} from "../../utils/FormsControls";
+import {Input, renderSelectField} from "../../utils/FormsControls";
 import {Field, reduxForm} from "redux-form";
-import Select from 'react-select';
-const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-]
+
 
 
 const AddPostForm = (props) => {
-    let colors = ['orange', 'red', 'blue', 'purple']
     return (
         <div>
             <h2>Add Post</h2>
             <form className={'form'} onSubmit={props.handleSubmit}>
-                <div><Field component={Input} name={'name'} type={'text'} placeholder={'name'} /></div>
-                <div><Field component={Input} name={'img'} type={'file'} /></div>
-                <div><Field component={SelectCustom} name={'category'}/></div>
-                <div><Field component={SelectMulti}></Field></div>
-                <div><Field component={Input} name={'password'} type={'password'} placeholder={'password'}/></div>
-                <div>
+                <div className={'form-row'}><Field component={Input} name={'name'} type={'text'} placeholder={'name'} /></div>
+                <div className={'form-row'}><Field component={Input} name={'img'} type={'file'} /></div>
+                <div className={'form-row'}><Field component={renderSelectField} name={'category'}>
+                    <option value={'ff0000'}>Red</option>
+                    <option value={'00ff00'}>Green</option>
+                    <option value={'0000ff'}>Blue</option>
+                </Field></div>
+                <div className={'form-row'}>
                     <button>Register</button>
                 </div>
             </form>
@@ -29,7 +25,7 @@ const AddPostForm = (props) => {
 }
 
 const AddPostReduxForm = reduxForm({
-    form: 'login'
+    form: 'addPost'
 })(AddPostForm)
 
 const AddPost = () => {

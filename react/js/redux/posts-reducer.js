@@ -1,6 +1,7 @@
 import {PostsAPI} from "../api";
 
 const SET_POST = 'SET_POST';
+const SET_CATEGORIES = 'SET_CATEGORIES';
 
 let initialState = {
     post: {
@@ -27,10 +28,15 @@ const postsReducer = (state = initialState, action) => {
     //console.log(action)
     switch (action.type) {
         case SET_POST: {
-            console.log(123456)
             return {
                 ...state,
                 post: action.post
+            }
+        }
+        case SET_CATEGORIES: {
+            return {
+                ...state,
+                categories: action.categories
             }
         }
         default:
@@ -40,7 +46,7 @@ const postsReducer = (state = initialState, action) => {
 
 export const setPost = (post) => ({type: SET_POST, post});
 export const getPost = (post) => async (dispatch) => {
-    console.log(dispatch)
+    //console.log(dispatch)
     let response = await PostsAPI.getPost(post);
     dispatch(setPost(response.data));
 }
@@ -50,4 +56,20 @@ export const requestPost = (post) => {
         dispatch(setPost(data))
     }
 }
+
+export const setCategories = (categories) => ({type: SET_CATEGORIES, categories});
+export const getCategories = () => async (dispatch) => {
+    let response = await PostsAPI.getCategories();
+    console.log('dispatch --',dispatch)
+    console.log('response --',response)
+    dispatch(setCategories);
+}
+
+export const requestCategories = () => {
+    return async (dispatch) => {
+        let data = await PostsAPI.getCategories();
+        dispatch(setCategories(data))
+    }
+}
+
 export default postsReducer;

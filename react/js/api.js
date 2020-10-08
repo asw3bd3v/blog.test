@@ -11,5 +11,12 @@ export const PostsAPI = {
                 //console.log('data form api ===',response.data)
                 return response.data;
             });
-    }
+    },
+    getCategories(){
+        return instance.get('/categories')
+            .then(response => {
+                return response.data;
+            })
+    },
 }
+

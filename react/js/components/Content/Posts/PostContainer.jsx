@@ -3,11 +3,12 @@ import Post from "./Post";
 import {PostsAPI as postsAPI} from "../../../api";
 import {compose} from "redux";
 import {connect} from "react-redux";
-import {requestPost} from "../../../redux/posts-reducer";
+import {requestCategories, requestPost} from "../../../redux/posts-reducer";
 
 class PostContainer extends React.Component {
     componentDidMount() {
         this.props.getPost(1);
+        this.props.getCategories();
         console.log('props ---', this.props)
     }
 
@@ -23,15 +24,18 @@ class PostContainer extends React.Component {
         )
     }
 }
-
+const getCategories = (state) => {
+    return state.postsReducer.categories;
+}
 const getPost = (state) => {
     return state.postsReducer.post;
 }
 let mapStateToProps = (state) => {
     //console.log('state == ', state)
     return {
-        post: getPost(state)
+        post: getPost(state),
+        categories: getCategories(state)
     }
 }
 
-export default compose(connect(mapStateToProps, {getPost: requestPost}))(PostContainer)
+export default compose(connect(mapStateToProps, {getPost: requestPost, getCategories: requestCategories}))(PostContainer)
