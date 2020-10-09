@@ -8,12 +8,11 @@ export const PostsAPI = {
     getPost(postNum){
         return instance.get('posts/' + postNum)
             .then(response => {
-                //console.log('data form api ===',response.data)
                 return response.data;
             });
     },
     getCategories(){
-        return instance.get('/categories')
+        return instance.get('categories')
             .then(response => {
                 return response.data;
             })

@@ -6,10 +6,6 @@ import {AiOutlineGooglePlus, AiOutlineTwitter} from "react-icons/ai";
 
 
 const Post = (props) => {
-    let [isOpened, setIsOpened] = useState(false);
-    let openPost = () => {
-        setIsOpened(true);
-    }
 
 
     return (

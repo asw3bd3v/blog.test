@@ -19,9 +19,10 @@ let initialState = {
         "date": "1",
         "image": "1",
         "description": "1"
+    },
+    categoies: {
+
     }
-
-
 }
 
 const postsReducer = (state = initialState, action) => {
@@ -46,7 +47,6 @@ const postsReducer = (state = initialState, action) => {
 
 export const setPost = (post) => ({type: SET_POST, post});
 export const getPost = (post) => async (dispatch) => {
-    //console.log(dispatch)
     let response = await PostsAPI.getPost(post);
     dispatch(setPost(response.data));
 }
@@ -60,9 +60,7 @@ export const requestPost = (post) => {
 export const setCategories = (categories) => ({type: SET_CATEGORIES, categories});
 export const getCategories = () => async (dispatch) => {
     let response = await PostsAPI.getCategories();
-    console.log('dispatch --',dispatch)
-    console.log('response --',response)
-    dispatch(setCategories);
+    dispatch(setCategories(response.data));
 }
 
 export const requestCategories = () => {

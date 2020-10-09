@@ -11,7 +11,7 @@ import PostContainer from "./Content/Posts/PostContainer";
 import Login from "./Login/Login";
 import {compose} from "redux";
 import Registration from "./Login/Registration";
-import AddPost from "./AddPost/AddPost";
+import AddPostContainer from "./AddPost/AddPostContainer";
 
 /* An example React component */
 class Main extends Component {
@@ -28,7 +28,7 @@ class Main extends Component {
                                     <Route exact path='/' render={() => <PostContainer/>}/>
                                     <Route path='/login' render={() => <Login/>}/>
                                     <Route path={'/register'} render={() => <Registration/>}></Route>
-                                    <Route path={'/addpost'} render={() => <AddPost/>}></Route>
+                                    <Route path={'/addpost'} render={() => <AddPostContainer/>}></Route>
                                     <Route path={'*'} render={() => <h2>404 Not Found</h2>}></Route>
                                 </Switch>
                             </div>
