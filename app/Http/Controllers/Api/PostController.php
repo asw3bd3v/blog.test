@@ -12,14 +12,13 @@ class PostController extends Controller {
     public function index(Request $request) {
         $perPage = $request->get('perPage', 15);
         //$posts = Post::all();
-        $posts = Post::paginate($perPage);
+        $posts = Post::with(['category', 'tags'])->paginate($perPage);
 
         return $posts;
     }
 
     public function show($id) {
-        $post = Post::where('id', $id)->firstOrFail();
-
+        $post = Post::with(['category', 'tags'])->where('id', $id)->get();
         return $post;
     }
 
