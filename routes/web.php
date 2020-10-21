@@ -14,6 +14,7 @@
 Route::get('/', function () {
     return view('app');
 });
+
 Route::group([
     'prefix' => 'home',
         ],

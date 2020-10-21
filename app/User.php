@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable {
 
@@ -19,7 +20,7 @@ class User extends Authenticatable {
      * @var array
      */
     protected $fillable = [
-        'name', 'email',
+        'name', 'email'
     ];
 
     /**
@@ -62,6 +63,11 @@ class User extends Authenticatable {
             $this->password = bcrypt($password);
             $this->save();
         }
+    }
+
+    public function generateApiToken() {
+        $this->api_token = Str::random(60);
+        $this->save();
     }
 
     public function remove() {

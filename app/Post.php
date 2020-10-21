@@ -55,7 +55,6 @@ class Post extends Model {
     public static function add($fields) {
         $post = new static;
         $post->fill($fields);
-        $post->user_id = 1;
         $post->save();
 
         return $post;

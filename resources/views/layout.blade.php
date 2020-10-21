@@ -51,11 +51,11 @@
 
                 <ul class="nav navbar-nav text-uppercase pull-right">
                 @if(Auth::check())
-                    <li><a href="/profile">My profile</a></li>
-                    <li><a href="/logout">Logout</a></li>
+                    <li><a href="/home/profile">My profile</a></li>
+                    <li><a href="/home/logout">Logout</a></li>
                 @else
-                    <li><a href="/register">Register</a></li>
-                    <li><a href="/login">Login</a></li>
+                    <li><a href="/home/register">Register</a></li>
+                    <li><a href="/home/login">Login</a></li>
                 @endif
                     
                 </ul>

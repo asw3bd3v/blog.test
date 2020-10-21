@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Post;
 use Illuminate\Support\Facades\Validator;
+use App\Post;
+use Auth;
 
 class PostController extends Controller {
 
@@ -32,10 +33,11 @@ class PostController extends Controller {
         
         if ($validation->fails()) {
             $errors = $validation->messages()->toJson();
-            return response()->json(["errors" => $errors]);
+            return response()->json(["status" => 0, "errors" => $errors]);
         }
 
         $post = Post::add($request->all());
+        $post->user_id = Auth::user()->id;
 
         $post->uploadImage($request->file('image'));
         $post->setCategory($request->get('category_id'));
@@ -56,7 +58,7 @@ class PostController extends Controller {
         
         if ($validation->fails()) {
             $errors = $validation->messages()->toJson();
-            return response()->json(["errors" => $errors]);
+            return response()->json(["status" => 0, "errors" => $errors]);
         }
 
         $post = Post::find($id);
@@ -68,6 +70,10 @@ class PostController extends Controller {
         $post->toggleFeatured($request->get('is_featured'));
 
         return response()->json([ "status" => 1, "message" => "Data save success." ]);
+    }
+    
+    public function test(Request $request) {
+        dd(Auth::user()->email);
     }
 
 }

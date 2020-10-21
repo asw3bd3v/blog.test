@@ -13,19 +13,27 @@ use Illuminate\Http\Request;
   |
  */
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-//Route::get('posts', 'Api\PostController@index');
-
 Route::group([
     'namespace' => 'Api',
         ], function() {
+    Route::post('register', 'RegisterController@register');
+    Route::post('login', 'LoginController@login');
+});
+
+Route::group([
+    'namespace' => 'Api',
+    //'middleware' => 'auth:api'
+        ], function() {
     Route::put('posts/update/{id}', 'PostController@update');
-    Route::post('posts/store/', 'PostController@store');
+    Route::post('posts/store', 'PostController@store');
     Route::get('posts/{id}', 'PostController@show');
     Route::get('posts', 'PostController@index');
-    
+
+    Route::get('categories/{id}/posts', 'CategoriesController@posts');
+    Route::get('categories/{id}', 'CategoriesController@show');
     Route::get('categories', 'CategoriesController@index');
+
     Route::get('tags', 'TagsController@index');
+
+    Route::post('logout', 'LoginController@logout');
 });
