@@ -2,27 +2,29 @@ import {PostsAPI} from "../api";
 
 const SET_POST = 'SET_POST';
 const SET_CATEGORIES = 'SET_CATEGORIES';
-
+const SET_TAGS = 'SET_TAGS';
 let initialState = {
-    post: {
+    post: [{
         "id": 1,
         "title": "1",
-        "slug": "1",
         "content": "1",
         "category_id": 1,
-        "user_id": 1,
-        "status": 0,
-        "views": 0,
-        "is_featured": 1,
-        "created_at": "1",
-        "updated_at": "1",
-        "date": "1",
         "image": "1",
         "description": "1"
-    },
-    categoies: {
-
-    }
+    }],
+    categories: [
+        {id: 2, title: "Наука"},
+        {id: 3, title: "Юмор"},
+    ],
+    tags: [
+        {
+            "id": 1,
+            "title": "Тег 1",
+            "slug": "teg-1",
+            "created_at": "2020-09-29 07:07:09",
+            "updated_at": "2020-09-29 07:07:09"
+        },
+    ]
 }
 
 const postsReducer = (state = initialState, action) => {
@@ -40,6 +42,12 @@ const postsReducer = (state = initialState, action) => {
                 categories: action.categories
             }
         }
+        case SET_TAGS: {
+            return {
+                ...state,
+                tags: action.tags
+            }
+        }
         default:
             return state;
     }
@@ -53,8 +61,14 @@ export const getPost = (post) => async (dispatch) => {
 export const requestPost = (post) => {
     return async (dispatch) => {
         let data = await PostsAPI.getPost(post)
+        //console.log(data)
         dispatch(setPost(data))
+
     }
+}
+
+export const savePost = (post) => {
+    PostsAPI.savePost(post)
 }
 
 export const setCategories = (categories) => ({type: SET_CATEGORIES, categories});
@@ -67,6 +81,15 @@ export const requestCategories = () => {
     return async (dispatch) => {
         let data = await PostsAPI.getCategories();
         dispatch(setCategories(data))
+
+    }
+}
+
+export const setTags = (tags) => ({type: SET_TAGS, tags});
+export const requestTags = () => {
+    return async (dispatch) => {
+        let data = await PostsAPI.getTags();
+        dispatch(setTags(data));
     }
 }
 

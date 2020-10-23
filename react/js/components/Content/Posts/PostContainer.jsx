@@ -10,18 +10,20 @@ class PostContainer extends React.Component {
     }
 
     render() {
+        //console.log('123',this.props.post[0])
         return (
-            <Post title={this.props.post.title}
+            <Post title={this.props.post[0].title}
                   category={'travel'}
-                  content={this.props.post.content}
-                  img={this.props.post.image}
-                  src_image={this.props.post.src_image}
-                  postCreateDate={this.props.post.created_at}
+                  content={this.props.post[0].content}
+                  img={this.props.post[0].image}
+                  src_image={this.props.post[0].src_image}
+                  postCreateDate={this.props.post[0].created_at}
             />
         )
     }
 }
 const getPost = (state) => {
+    //console.log('posts', state.postsReducer.post);
     return state.postsReducer.post;
 }
 let mapStateToProps = (state) => {
