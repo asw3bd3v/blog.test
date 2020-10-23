@@ -30,7 +30,7 @@ class PostController extends Controller {
             'date' => 'required',
             'image' => 'nullable|image'
         ]);
-        
+
         if ($validation->fails()) {
             $errors = $validation->messages()->toJson();
             return response()->json(["status" => 0, "errors" => $errors]);
@@ -47,7 +47,7 @@ class PostController extends Controller {
 
         return response()->json([ "status" => 1, "message" => "Data save success." ]);
     }
-    
+
     public function update(Request $request, $id) {
         $validation = Validator::make($request->all(), [
             'title' => 'required',
@@ -55,7 +55,7 @@ class PostController extends Controller {
             'date' => 'required',
             'image' => 'nullable|image'
         ]);
-        
+
         if ($validation->fails()) {
             $errors = $validation->messages()->toJson();
             return response()->json(["status" => 0, "errors" => $errors]);
@@ -71,7 +71,7 @@ class PostController extends Controller {
 
         return response()->json([ "status" => 1, "message" => "Data save success." ]);
     }
-    
+
     public function test(Request $request) {
         dd(Auth::user()->email);
     }
