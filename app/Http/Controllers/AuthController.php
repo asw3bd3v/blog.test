@@ -24,7 +24,7 @@ class AuthController extends Controller {
 
         $user->generatePassword($request->get('password'));
 
-        return redirect('/login');
+        return redirect('/home/login');
     }
 
     public function loginForm() {
@@ -41,7 +41,7 @@ class AuthController extends Controller {
                     'email' => $request->get('email'),
                     'password' => $request->get('password')
                 ])) {
-            return redirect('/');
+            return redirect('/home');
         }
         
         return redirect()->back()->with('error', 'Неправильный логин или пароль');
@@ -50,7 +50,7 @@ class AuthController extends Controller {
     public function logout() {
         Auth::logout();
         
-        return redirect('/login');
+        return redirect('/home/login');
     }
 
 }
