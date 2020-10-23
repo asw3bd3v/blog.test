@@ -7,6 +7,7 @@
 /public/react
 /public/hot
 /public/storage
+/public/uploads
 /storage/*.key
 /vendor
 /.idea

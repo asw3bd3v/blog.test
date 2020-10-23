@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Post;
 use Auth;
+use Carbon\Carbon;
 
 class PostController extends Controller {
 
@@ -37,7 +38,8 @@ class PostController extends Controller {
         }
 
         $post = Post::add($request->all());
-        $post->user_id = Auth::user()->id;
+        //$post->user_id = Auth::user()->id;
+        $post->user_id = 1;
 
         $post->uploadImage($request->file('image'));
         $post->setCategory($request->get('category_id'));
@@ -73,7 +75,8 @@ class PostController extends Controller {
     }
     
     public function test(Request $request) {
-        dd(Auth::user()->email);
+        $date = Carbon::createFromFormat('d/m/y', '20/10/2020')->format('Y-m-d');
+        dd($date);
     }
 
 }

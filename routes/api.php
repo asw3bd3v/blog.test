@@ -18,14 +18,8 @@ Route::group([
         ], function() {
     Route::post('register', 'RegisterController@register');
     Route::post('login', 'LoginController@login');
-});
-
-Route::group([
-    'namespace' => 'Api',
-    //'middleware' => 'auth:api'
-        ], function() {
-    Route::put('posts/update/{id}', 'PostController@update');
-    Route::post('posts/store', 'PostController@store');
+    Route::get('posts/test', 'PostController@test');
+    
     Route::get('posts/{id}', 'PostController@show');
     Route::get('posts', 'PostController@index');
 
@@ -34,6 +28,14 @@ Route::group([
     Route::get('categories', 'CategoriesController@index');
 
     Route::get('tags', 'TagsController@index');
+});
+
+Route::group([
+    'namespace' => 'Api',
+    //'middleware' => 'auth:api'
+        ], function() {
+    Route::put('posts/update/{id}', 'PostController@update');
+    Route::post('posts/store', 'PostController@store');    
 
     Route::post('logout', 'LoginController@logout');
 });
