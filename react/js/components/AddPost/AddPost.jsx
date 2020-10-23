@@ -51,7 +51,7 @@ const AddPostReduxForm = reduxForm({
 const AddPost = (props) => {
 
     const onSubmit = (formData) => {
-        //console.log(formData)
+        console.log(formData)
         let fd = new FormData();
         fd.append('title', formData.name);
         fd.append('date', formData.date,);

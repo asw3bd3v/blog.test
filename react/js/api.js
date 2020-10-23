@@ -29,4 +29,15 @@ export const PostsAPI = {
             })
     }
 }
+export const AuthAPI = {
+    login(email, password){
+        return instance.post('login', {email, password});
+    },
+    logout(){
+        return instance.post('logout');
+    },
+    register(name, email, password){
+        return instance.post('register', {name, email, password});
+    }
+}
 

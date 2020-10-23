@@ -1,6 +1,7 @@
 import React from 'react';
 import {Input} from "../../utils/FormsControls";
 import {Field, reduxForm} from "redux-form";
+import {AuthAPI} from "../../api";
 
 const RegistrationForm = (props) => {
     return (
@@ -22,9 +23,12 @@ const RegistrationReduxForm = reduxForm({
     form: 'login'
 })(RegistrationForm)
 
-const Registration = () => {
+const Registration = (props) => {
+    const onSubmit = (formData) => {
+        AuthAPI.register(formData.name, formData.email, formData.password)
+    }
     return (
-        <RegistrationReduxForm/>
+        <RegistrationReduxForm onSubmit={onSubmit}/>
     )
 }
 export default Registration;
