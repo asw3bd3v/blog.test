@@ -32,7 +32,7 @@ Route::group([
 
 Route::group([
     'namespace' => 'Api',
-    //'middleware' => 'auth:api'
+    'middleware' => 'auth:api'
         ], function() {
     Route::put('posts/update/{id}', 'PostController@update');
     Route::post('posts/store', 'PostController@store');    
