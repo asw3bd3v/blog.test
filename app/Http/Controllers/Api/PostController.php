@@ -38,8 +38,8 @@ class PostController extends Controller {
         }
 
         $post = Post::add($request->all());
-        //$post->user_id = Auth::user()->id;
-        $post->user_id = 1;
+        $post->user_id = Auth::user()->id;
+        //$post->user_id = 1;
 
         $post->uploadImage($request->file('image'));
         $post->setCategory($request->get('category_id'));
