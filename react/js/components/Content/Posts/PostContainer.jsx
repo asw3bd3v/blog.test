@@ -3,10 +3,12 @@ import Post from "./Post";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import {requestPost} from "../../../redux/posts-reducer";
+import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
 
 class PostContainer extends React.Component {
     componentDidMount() {
         this.props.getPost(1);
+        console.log(this.props);
     }
 
     render() {
@@ -22,6 +24,7 @@ class PostContainer extends React.Component {
         )
     }
 }
+
 const getPost = (state) => {
     //console.log('posts', state.postsReducer.post);
     return state.postsReducer.post;
@@ -32,4 +35,8 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default compose(connect(mapStateToProps, {getPost: requestPost}))(PostContainer)
+export default compose(
+    withAuthRedirect,
+    connect(mapStateToProps,
+        {getPost: requestPost})
+)(PostContainer)

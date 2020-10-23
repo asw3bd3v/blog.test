@@ -38,6 +38,9 @@ export const AuthAPI = {
     },
     register(name, email, password){
         return instance.post('register', {name, email, password});
+    },
+    authMe(){
+        
     }
 }
 
