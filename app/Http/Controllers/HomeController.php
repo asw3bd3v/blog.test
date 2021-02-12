@@ -12,7 +12,7 @@ class HomeController extends Controller {
 
     public function index() {
         $posts = Post::paginate(5);
-        
+
         // Для примера (используется в AppServiceProvider.php)
         // Получаем только id
         //$popularPosts = Post::orderBy('views', 'desc')->take(3)->pluck('id')->all();
