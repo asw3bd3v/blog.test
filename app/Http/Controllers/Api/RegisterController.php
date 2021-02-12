@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller {
     /*
@@ -38,6 +39,23 @@ use RegistersUsers;
     public function __construct() {
         $this->middleware('guest');
     }
+    
+    public function register(Request $request)
+    {
+        $validation = $this->validator($request->all());
+        
+        if ($validation->fails()) {
+            $errors = $validation->messages()->toJson();
+            return response()->json(["status" => 0, "errors" => $errors]);
+        }
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
+    }
 
     /**
      * Get a validator for an incoming registration request.
@@ -50,7 +68,7 @@ use RegistersUsers;
                     'name' => 'required',
                     'email' => 'required|email|unique:users',
                     'password' => 'required',
-        ]);       
+        ]);
     }
 
     /**
@@ -84,7 +102,7 @@ use RegistersUsers;
     }
 
     protected function registered(Request $request, $user) {
-       return response()->json(['data' => $user->toArray()], 201);
+        return response()->json(['data' => $user->toArray()], 201);
     }
 
 }
