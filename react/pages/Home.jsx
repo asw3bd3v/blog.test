@@ -1,21 +1,73 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Post from "../components/Post";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {fetchPosts} from "../redux/actions/postAction";
+import {Route} from "react-router-dom";
+import Login from "../components/Login";
+import Registration from "../components/Registration";
+
+function getCookie(name) {
+    let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+}
 
 const Home = () => {
+    const [viewPost, setViewPost] = useState(0);
+    const posts = useSelector(({postsReducer}) => postsReducer.posts);
     const dispatch = useDispatch();
     useEffect(() => {
-           //dispatch(postsApi.getPosts((dispatch)));
         dispatch(fetchPosts());
-    })
+    }, []);
     return (
-        <div>
+        <React.Fragment>
             <div className="posts">
-                <Post />
+                <Route exact path={'/'}>
+                    {
+                        posts.map((post, index) => {
+                            console.log(post)
+                            return <Post
+                                key={post.id}
+                                id={post.id}
+                                title={post.title}
+                                preDescription={post.description}
+                                //description={post.content}
+                                category={post.category.title}
+                                //tags={post.tags}
+                                srcImage={post.src_image}
+                                date={post.date}
+                                slug={post.slug}
+                                setIdViewPost={setViewPost}
+                                index={index}
+                            />
+                        })
+                    }
+
+                </Route>
+                <Route path={'/' + posts[viewPost].slug}>
+                    <Post
+                        key={posts[viewPost].id}
+                        id={posts[viewPost].id}
+                        title={posts[viewPost].title}
+                        //preDescription={posts[viewPost].description}
+                        description={posts[viewPost].content}
+                        category={posts[viewPost].category.title}
+                        tags={posts[viewPost].tags}
+                        srcImage={posts[viewPost].src_image}
+                        date={posts[viewPost].date}
+                        slug={posts[viewPost].slug}
+                    />
+                </Route>
+                <Route path={'/login'}>
+                    <Login />
+                </Route>
+                <Route path={'/registration'}>
+                    <Registration />
+                </Route>
             </div>
             <aside className="aside"></aside>
-        </div>
+        </React.Fragment>
     )
 }
 

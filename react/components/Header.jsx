@@ -1,5 +1,6 @@
 import React from 'react';
 import logoImg from '../img/logo.png';
+import {Link} from "react-router-dom";
 
 const Header = () => {
     return (
@@ -11,8 +12,8 @@ const Header = () => {
                 <a href="">Contact</a>
             </nav>
             <div className="login-nav">
-                <a href="">register</a>
-                <a href="">login</a>
+                <Link to="/registration">Регистрация</Link>
+                <Link to="/login">Логин</Link>
             </div>
         </header>
     );

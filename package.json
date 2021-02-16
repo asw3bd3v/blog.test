@@ -17,13 +17,14 @@
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^2.0",
-        "lodash": "^4.17.4",
+        "lodash": "^4.17.20",
         "popper.js": "^1.12",
         "vue": "^2.6.12"
     },
     "dependencies": {
         "@material-ui/core": "^4.11.0",
         "babel-preset-react": "^6.24.1",
+        "formik": "^2.2.6",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
         "react-icons": "^3.11.0",
