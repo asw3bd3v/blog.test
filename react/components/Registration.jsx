@@ -1,6 +1,6 @@
 import React from 'react';
 import {Field, Form, Formik} from "formik";
-import {loginAuth} from "../redux/actions/authAction";
+import {registration} from "../redux/actions/authAction";
 import {useDispatch} from "react-redux";
 
 const Registration = () => {
@@ -16,7 +16,7 @@ const Registration = () => {
                 }}
                 onSubmit={async (values) => {
                     await new Promise((r) => setTimeout(r, 500));
-                    console.log(values)
+                    registration(values);
                     //dispatch(loginAuth(values));
                 }}
             >

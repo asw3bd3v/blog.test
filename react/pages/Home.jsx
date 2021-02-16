@@ -6,13 +6,6 @@ import {Route} from "react-router-dom";
 import Login from "../components/Login";
 import Registration from "../components/Registration";
 
-function getCookie(name) {
-    let matches = document.cookie.match(new RegExp(
-        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-    ));
-    return matches ? decodeURIComponent(matches[1]) : undefined;
-}
-
 const Home = () => {
     const [viewPost, setViewPost] = useState(0);
     const posts = useSelector(({postsReducer}) => postsReducer.posts);
@@ -26,7 +19,6 @@ const Home = () => {
                 <Route exact path={'/'}>
                     {
                         posts.map((post, index) => {
-                            console.log(post)
                             return <Post
                                 key={post.id}
                                 id={post.id}

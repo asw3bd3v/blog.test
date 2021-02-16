@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import './main.css'
 import {HashRouter} from "react-router-dom";
@@ -6,9 +6,12 @@ import Header from "../../components/Header";
 import Home from "../../pages/Home";
 import {Provider, useSelector} from "react-redux";
 import store from "../../redux/store";
+import {getCookie} from "../../utils/cookie";
 
 /* An example React component */
 function Main () {
+    let token = getCookie('token');
+        console.log(token)
     return (
         <HashRouter>
             <Provider store={store}>
@@ -16,7 +19,7 @@ function Main () {
                     <div className="content">
                         <div className="header-wrapper">
                             <div className="container">
-                                <Header/>
+                                <Header token={token}/>
                             </div>
                         </div>
 
