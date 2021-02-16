@@ -12,7 +12,7 @@
                     <h3 class="text-uppercase">Register</h3>
                     @include('admin.errors')
                     <br>
-                    <form class="form-horizontal contact-form" role="form" method="post" action="/register">
+                    <form class="form-horizontal contact-form" role="form" method="post" action="/home/register">
                         {{csrf_field()}}
                         <div class="form-group">
                             <div class="col-md-12">
