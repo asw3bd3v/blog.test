@@ -53,5 +53,6 @@ Authorization Bearer API_TOKEN, где API_TOKEN - значение поля api
 Выход из системы:  POST /api/logout
 
 Получение зарегистрированного пользователя: GET /api/user
+
 Нужно передать:
 - api_token
