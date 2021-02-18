@@ -16,12 +16,12 @@ class PostController extends Controller {
         //$posts = Post::all();
         $posts = Post::with(['category', 'tags'])->paginate($perPage);
 
-        return $posts;
+        return $posts->toJson(JSON_UNESCAPED_UNICODE);
     }
 
     public function show($id) {
         $post = Post::with(['category', 'tags'])->where('id', $id)->get();
-        return $post;
+        return $post->toJson(JSON_UNESCAPED_UNICODE);
     }
 
     public function store(Request $request) {
@@ -72,11 +72,6 @@ class PostController extends Controller {
         $post->toggleFeatured($request->get('is_featured'));
 
         return response()->json([ "status" => 1, "message" => "Data save success." ]);
-    }
-
-    public function test(Request $request) {
-        $date = Carbon::createFromFormat('d/m/y', '20/10/2020')->format('Y-m-d');
-        dd($date);
     }
 
 }
