@@ -42,4 +42,7 @@ Route::group([
     Route::get('/user', function(Request $request) {
         return $request->user();
     });
+    
+    Route::get('/profile', 'ProfileController@show');
+    Route::put('/profile/update/{id}', 'ProfileController@update');
 });
