@@ -1,9 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Redirect} from "react-router-dom";
 import {Field, Form, Formik} from "formik";
 import {createPost} from "../redux/actions/createPost";
-import {getCategories, getTags} from "../redux/actions/postAction";
-import {useDispatch, useSelector} from "react-redux";
 
 const CreatePost = ({token, tags, categories}) => {
     return (
@@ -19,7 +17,7 @@ const CreatePost = ({token, tags, categories}) => {
                             image: '',
                             category_id: '',
                             tags: [],
-                            date: '',
+                            //date: '',
                             description: '',
                             content: '',
                         }}
@@ -27,15 +25,21 @@ const CreatePost = ({token, tags, categories}) => {
                         onSubmit={async (values) => {
                             await new Promise((r) => setTimeout(r, 500));
                             let formData = new FormData();
-                            console.log(values)
+                            console.log(values.tags)
                             formData.append('category_id', values.category_id)
                             formData.append('image', values.image)
                             formData.append('title', values.title)
-                            formData.append('tags', values.tags)
-                            formData.append('date', values.date)
+
+                            // for (var i = 0; i < values.tags.length; i++) {
+                            //     formData.append('tags[]', values.tags[i]);
+                            // }
+                            formData.append('tags[]', values.tags)
+                            //formData.append('date', values.date)
                             formData.append('description', values.description)
                             formData.append('content', values.content)
-                            console.log(formData)
+
+                            console.log(formData.get('tags[]'));
+
                             createPost(formData);
                         }}
                     >
@@ -48,11 +52,7 @@ const CreatePost = ({token, tags, categories}) => {
                                 <div className="form-row">
                                     <label htmlFor="image">Изображение</label>
                                     <input id={'image'} type={'file'} name={'image'} onChange={(event) => {
-                                        //let formData = new FormData();
-                                        //formData.append('image', event.currentTarget.files[0])
-                                        //console.log(event.currentTarget.files[0]);
                                         setFieldValue("image", event.currentTarget.files[0]);
-                                        //setFieldValue("image", formData);
                                     }}/>
                                 </div>
                                 <div className="form-row">
