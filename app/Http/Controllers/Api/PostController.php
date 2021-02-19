@@ -14,7 +14,7 @@ class PostController extends Controller {
     public function index(Request $request) {
         $perPage = $request->get('perPage', 15);
         //$posts = Post::all();
-        $posts = Post::with(['category', 'tags'])->paginate($perPage);
+        $posts = Post::with(['category', 'tags'])->orderBy('id', 'desc')->paginate($perPage);
 
         return $posts->toJson(JSON_UNESCAPED_UNICODE);
     }
@@ -36,7 +36,9 @@ class PostController extends Controller {
             return response()->json(["status" => 0, "errors" => $errors]);
         }
 
-        $post = Post::add($request->all());
+        $dateTime = new \DateTime();
+        $date = $dateTime->format('d/m/y');
+        $post = Post::add(array_merge([], $request->all(), ['date' => $date]));
         $post->user_id = Auth::user()->id;
 
         $post->uploadImage($request->file('image'));
