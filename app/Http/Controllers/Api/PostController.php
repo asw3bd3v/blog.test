@@ -28,7 +28,6 @@ class PostController extends Controller {
         $validation = Validator::make($request->all(), [
             'title' => 'required',
             'content' => 'required',
-            'date' => 'required',
             'image' => 'nullable|image'
         ]);
 
@@ -54,7 +53,6 @@ class PostController extends Controller {
         $validation = Validator::make($request->all(), [
             'title' => 'required',
             'content' => 'required',
-            'date' => 'required',
             'image' => 'nullable|image'
         ]);
 
