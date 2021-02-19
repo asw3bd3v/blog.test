@@ -43,7 +43,6 @@ class Post extends Model {
         return $this->hasMany(Comment::class);
     }
 
-
     public function sluggable() {
         return [
             'slug' => [
@@ -195,11 +194,11 @@ class Post extends Model {
         $postID = $this->hasNext(); // ID
         return self::find($postID);
     }
-    
+
     public function related() {
         return self::all()->except($this->id);
     }
-    
+
     public function hasCategory() {
         return $this->category != null ? true : false;
     }
@@ -207,12 +206,13 @@ class Post extends Model {
     public function getComments() {
         return $this->comments()->where('status', 1)->get();
     }
-    
+
     public function getSrcImageAttribute() {
         if ($this->image == null) {
             return '/img/no-image.png';
         }
-        
+
         return '/uploads/' . $this->image;
     }
+
 }
