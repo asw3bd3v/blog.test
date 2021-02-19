@@ -1,17 +1,23 @@
 import React, {useEffect, useState} from 'react';
 import Post from "../components/Post";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchPosts} from "../redux/actions/postAction";
+import {getCategories, getPosts, getTags} from "../redux/actions/postAction";
 import {Route} from "react-router-dom";
 import Login from "../components/Login";
 import Registration from "../components/Registration";
+import CreatePost from "../components/CreatePost";
 
-const Home = () => {
+const Home = ({token}) => {
     const [viewPost, setViewPost] = useState(0);
     const posts = useSelector(({postsReducer}) => postsReducer.posts);
+    const categories = useSelector(({categoriesReducer}) => categoriesReducer.categories);
+    const tags = useSelector(({tagsReducer}) => tagsReducer.tags);
+    //const userToken = useSelector(({authReducer}) => authReducer.userData.api_token);
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(fetchPosts());
+        dispatch(getPosts());
+        dispatch(getCategories());
+        dispatch(getTags());
     }, []);
     return (
         <React.Fragment>
@@ -52,11 +58,15 @@ const Home = () => {
                     />
                 </Route>
                 <Route path={'/login'}>
-                    <Login />
+                    <Login token={token}/>
                 </Route>
                 <Route path={'/registration'}>
-                    <Registration />
+                    <Registration token={token}/>
                 </Route>
+                <Route path={'/create_post'}>
+                    <CreatePost token={token} categories={categories} tags={tags}/>
+                </Route>
+
             </div>
             <aside className="aside"></aside>
         </React.Fragment>

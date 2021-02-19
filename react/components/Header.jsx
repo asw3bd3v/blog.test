@@ -1,23 +1,26 @@
 import React, {useEffect} from 'react';
 import logoImg from '../img/logo.png';
 import {Link} from "react-router-dom";
-import {getCookie} from "../utils/cookie";
-import {fetchPosts} from "../redux/actions/postAction";
+import {useDispatch} from "react-redux";
 
-const Header = ({token}) => {
-    console.log(token)
+const Header = ({token, logout}) => {
+    const dispatch = useDispatch();
+    const logoutUser = () => {
+        dispatch(logout());
+    }
     return (
         <header className={'header'}>
-            <a href="" className="logo"><img src={logoImg} alt=""/></a>
+            <Link to="/" className="logo"><img src={logoImg} alt=""/></Link>
             <nav>
-                <a href="">Homepage</a>
+                <Link to="/">Homepage</Link>
                 <a href="">About me</a>
                 <a href="">Contact</a>
             </nav>
             {token ?
                 <div className="login-nav">
+                    <Link to="/create_post">Создать пост</Link>
                     <Link to="/">Профиль</Link>
-                    <Link to="/">Выход</Link>
+                    <Link to="/" onClick={logoutUser}>Выход</Link>
                 </div>
                 :
                 <div className="login-nav">

@@ -1,36 +1,20 @@
-import React, {Component, useEffect} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import './main.css'
 import {HashRouter} from "react-router-dom";
-import Header from "../../components/Header";
-import Home from "../../pages/Home";
-import {Provider, useSelector} from "react-redux";
+import {Provider, useDispatch, useSelector} from "react-redux";
 import store from "../../redux/store";
+import Wrapper from "./Wrapper";
 import {getCookie} from "../../utils/cookie";
+import {setToken} from "../../redux/actions/authAction";
 
 /* An example React component */
-function Main () {
-    let token = getCookie('token');
-        console.log(token)
+function Main() {
+
     return (
         <HashRouter>
             <Provider store={store}>
-                <div className="wrapper">
-                    <div className="content">
-                        <div className="header-wrapper">
-                            <div className="container">
-                                <Header token={token}/>
-                            </div>
-                        </div>
-
-                        <div className="content">
-                            <div className="container">
-                                <Home/>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="footer">Footer</div>
-                </div>
+                <Wrapper/>
             </Provider>
         </HashRouter>
     );

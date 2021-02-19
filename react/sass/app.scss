@@ -253,7 +253,9 @@ body {
     display: flex;
     flex-direction: column;
   }
-  input{
+  input,
+  select,
+  textarea{
     background-color: #FAFAFA;
     color: #999;
     border: 1px solid #eee;
@@ -286,7 +288,7 @@ form{
       width: 100px;
       margin-bottom: 0;
     }
-    input{
+    & > *:not(label){
       flex: 1;
       margin-left: 15px;
     }
