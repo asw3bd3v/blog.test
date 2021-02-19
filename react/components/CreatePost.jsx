@@ -4,6 +4,7 @@ import {Field, Form, Formik} from "formik";
 import {createPost} from "../redux/actions/createPost";
 
 const CreatePost = ({token, tags, categories}) => {
+    let defaultCategoriesId = categories.reduce((acc, curr) => acc.id < curr.id ? acc : curr);
     return (
         <React.Fragment>
             {!token ?
@@ -15,9 +16,8 @@ const CreatePost = ({token, tags, categories}) => {
                         initialValues={{
                             title: '',
                             image: '',
-                            category_id: '',
+                            category_id: defaultCategoriesId.id,
                             tags: [],
-                            //date: '',
                             description: '',
                             content: '',
                         }}
@@ -25,20 +25,12 @@ const CreatePost = ({token, tags, categories}) => {
                         onSubmit={async (values) => {
                             await new Promise((r) => setTimeout(r, 500));
                             let formData = new FormData();
-                            console.log(values.tags)
                             formData.append('category_id', values.category_id)
                             formData.append('image', values.image)
                             formData.append('title', values.title)
-
-                            // for (var i = 0; i < values.tags.length; i++) {
-                            //     formData.append('tags[]', values.tags[i]);
-                            // }
-                            formData.append('tags[]', values.tags)
-                            //formData.append('date', values.date)
+                            formData.append('tags', values.tags)
                             formData.append('description', values.description)
                             formData.append('content', values.content)
-
-                            console.log(formData.get('tags[]'));
 
                             createPost(formData);
                         }}
@@ -59,7 +51,10 @@ const CreatePost = ({token, tags, categories}) => {
                                     <label htmlFor="tags">Катергории</label>
                                     <Field id={'category_id'} as="select" name={'category_id'}>
                                         {
-                                            categories.map(category => {
+                                            categories.map((category, index) => {
+                                                // if(index === 0){
+                                                //     return <option key={category.id} value={category.id} id={category.id}>{category.title}</option>
+                                                // }
                                                 return <option key={category.id} value={category.id} id={category.id}>{category.title}</option>
                                             })
                                         }
@@ -78,10 +73,6 @@ const CreatePost = ({token, tags, categories}) => {
                                            multiple={true}>
                                         {tags.map(tag => <option key={tag.id} value={tag.id} id={tag.id}>{tag.title}</option>)}
                                     </Field>
-                                </div>
-                                <div className="form-row">
-                                    <label htmlFor="date">Дата</label>
-                                    <Field id={'date'} name={'date'} placeholder={'Введите дату'}/>
                                 </div>
                                 <div className="form-row">
                                     <label htmlFor="description">Краткое описание</label>
