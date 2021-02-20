@@ -59,16 +59,6 @@ export const postsReducer = (state = postState, action) => {
                 posts: _.merge(newPosts, action.payload)
 
             }
-        case 'SET_CATEGORIES':
-            return {
-                ...state,
-                categories: action.payload
-            }
-        case 'SET_TAGS':
-            return {
-                ...state,
-                tags: action.payload
-            }
         default:
             return {
                 ...state

@@ -25,7 +25,7 @@ const Post = ({title, description, preDescription, category, srcImage, date, tag
                 <div className="post-description" dangerouslySetInnerHTML={{__html: description}}></div>
                 }
                 {preDescription &&
-                <Link to={slug} className="post-continue__reading post-button">Продолжить чтение</Link>
+                <Link to={slug} className="post-continue__reading post-button" onClick={test}>Продолжить чтение</Link>
                 }
                 {description &&
                 <div className="tags">

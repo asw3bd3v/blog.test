@@ -30,9 +30,7 @@ const Home = ({token}) => {
                                 id={post.id}
                                 title={post.title}
                                 preDescription={post.description}
-                                //description={post.content}
                                 category={post.category.title}
-                                //tags={post.tags}
                                 srcImage={post.src_image}
                                 date={post.date}
                                 slug={post.slug}
@@ -48,7 +46,6 @@ const Home = ({token}) => {
                         key={posts[viewPost].id}
                         id={posts[viewPost].id}
                         title={posts[viewPost].title}
-                        //preDescription={posts[viewPost].description}
                         description={posts[viewPost].content}
                         category={posts[viewPost].category.title}
                         tags={posts[viewPost].tags}
