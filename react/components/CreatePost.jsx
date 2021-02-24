@@ -89,7 +89,7 @@ const CreatePost = ({token, tags, categories}) => {
                                     <div className="form-row">
                                         <label htmlFor="content">Описание</label>
                                         <Field id={'content'} as={'textarea'} name={'content'}
-                                               placeholder={'Введите стаью'}/>
+                                               placeholder={'Введите статью'}/>
                                     </div>
 
                                     <button type={'subscribe'}>Создать</button>

@@ -6,18 +6,22 @@ import {Route} from "react-router-dom";
 import Login from "../components/Login";
 import Registration from "../components/Registration";
 import CreatePost from "../components/CreatePost";
+import Profile from "../components/Profile";
+import {getProfile} from "../redux/actions/authAction";
 
 const Home = ({token}) => {
     const [viewPost, setViewPost] = useState(0);
     const posts = useSelector(({postsReducer}) => postsReducer.posts);
     const categories = useSelector(({categoriesReducer}) => categoriesReducer.categories);
     const tags = useSelector(({tagsReducer}) => tagsReducer.tags);
+    const userData = useSelector(({authReducer}) => authReducer.userData);
     //const userToken = useSelector(({authReducer}) => authReducer.userData.api_token);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getPosts());
         dispatch(getCategories());
         dispatch(getTags());
+        dispatch(getProfile());
     }, []);
     return (
         <React.Fragment>
@@ -62,6 +66,9 @@ const Home = ({token}) => {
                 </Route>
                 <Route path={'/create_post'}>
                     <CreatePost token={token} categories={categories} tags={tags}/>
+                </Route>
+                <Route path={'/profile'}>
+                    <Profile token={token} userData={userData}/>
                 </Route>
 
             </div>

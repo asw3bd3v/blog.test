@@ -3,7 +3,6 @@ import {deleteCookie, getCookie} from "../../utils/cookie";
 export const loginAuth = (data) => (dispatch) => {
     axios.post(`api/login`, data)
         .then(response => {
-            //console.log(response)
             let date = new Date(Date.now() + 86400e3); // Установка времени занчени cookie на 1 день == 86400e3
             date = date.toUTCString();
             document.cookie = `isLogin=true; expires=${date}`;
@@ -26,9 +25,15 @@ export const registration = (data) => (dispatch) =>{
 export const logout = () => (dispatch) =>{
     axios.post(`api/logout`, {}, {headers: {'Authorization': 'Bearer ' + getCookie('token')}})
         .then(response => {
-            console.log(response)
             deleteCookie("token")
             dispatch(deleteLogin())
+        })
+}
+export const getProfile = () => (dispatch) => {
+    axios.get(`api/profile`,  {headers: {'Authorization': 'Bearer ' + getCookie('token')}})
+        .then(response => {
+            console.log(response)
+            dispatch(setLogin(response.data))
         })
 }
 export const deleteLogin = () => ({
@@ -42,3 +47,10 @@ export const setToken = (token) => ({
     type: 'SET_TOKEN',
     payload: token
 })
+export const putProfile = (userId, data) => {
+    console.log('name', data.get('name'))
+    axios.put(`api/profile/update/${userId}`, data,  {headers: {'Authorization': 'Bearer ' + getCookie('token')}})
+        .then(response => {
+            console.log(response)
+        })
+}

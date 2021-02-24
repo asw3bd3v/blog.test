@@ -6,8 +6,10 @@ const initialState = {
     userData: {
         name: "test",
         login: 'test',
+        email: 'test@gmail.com',
         id: 1,
         api_token: getCookie('token'),
+        avatar: '',
     }
 }
 export const authReducer = (state = initialState, action) => {

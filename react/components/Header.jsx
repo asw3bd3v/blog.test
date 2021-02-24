@@ -19,7 +19,7 @@ const Header = ({token, logout}) => {
             {token ?
                 <div className="login-nav">
                     <Link to="/create_post">Создать пост</Link>
-                    <Link to="/">Профиль</Link>
+                    <Link to="/profile">Профиль</Link>
                     <Link to="/" onClick={logoutUser}>Выход</Link>
                 </div>
                 :
