@@ -26,7 +26,8 @@ export const authReducer = (state = initialState, action) => {
             }
         case 'DELETE_USER_DATA':
             return {
-                ...initialState
+                ...state,
+                userData: initialState
             }
         default:
             return {
