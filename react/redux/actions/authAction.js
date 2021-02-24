@@ -5,7 +5,6 @@ export const loginAuth = (data) => (dispatch) => {
         .then(response => {
             let date = new Date(Date.now() + 86400e3); // Установка времени занчени cookie на 1 день == 86400e3
             date = date.toUTCString();
-            document.cookie = `isLogin=true; expires=${date}`;
             document.cookie = `token=${response.data.data.api_token}; expires=${date}`;
             dispatch(setLogin(response.data.data))
         })
@@ -16,7 +15,6 @@ export const registration = (data) => (dispatch) =>{
         .then(response => {
             let date = new Date(Date.now() + 86400e4); // Установка времени занчени cookie на 1 день == 86400e3
             date = date.toUTCString();
-            document.cookie = `isLogin=true; expires=${date}`;
             document.cookie = `token=${response.data.data.api_token}; expires=${date}`;
             dispatch(setLogin(response.data.data))
         })
