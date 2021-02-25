@@ -51,7 +51,7 @@ class ProfileController extends Controller {
         return Validator::make($data, [
                     'name' => 'required',
                     'email' => [
-                        'nullable',
+                        'required',
                         'email',
                         Rule::unique('users')->ignore(Auth::user()->id)
                     ],
