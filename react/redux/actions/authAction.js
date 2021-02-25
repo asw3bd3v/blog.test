@@ -47,7 +47,7 @@ export const setToken = (token) => ({
 })
 export const putProfile = (userId, data) => {
     console.log('name', data.get('name'))
-    axios.put(`api/profile/update/${userId}`, data,  {headers: {'Authorization': 'Bearer ' + getCookie('token')}})
+    axios.post(`api/profile/update/${userId}`, data,  {headers: {'Authorization': 'Bearer ' + getCookie('token')}})
         .then(response => {
             console.log(response)
         })

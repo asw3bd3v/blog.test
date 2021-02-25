@@ -17,7 +17,6 @@ const Profile = ({token, userData}) => {
                             name: userData.name,
                             password: '',
                             avatar: srcAvatar,
-                            email: '',
                         }}
 
                         onSubmit={async (values) => {
@@ -27,6 +26,7 @@ const Profile = ({token, userData}) => {
                             formData.append('password', values.password)
                             formData.append('avatar', values.avatar)
                             formData.append('email', values.email)
+                            formData.append('_method', 'put')
                             putProfile(userData.id, formData);
                         }}
                     >
