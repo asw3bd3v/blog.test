@@ -34,7 +34,7 @@ Route::group([
     ], function() {
     Route::get('/logout', 'AuthController@logout');
     Route::get('/profile', 'ProfileController@index');
-    Route::post('/profile', 'ProfileController@store');
+    Route::post('/profile', 'ProfileController@store')->name('profile.store');
     Route::post('/comment', 'CommentsController@store');
 });
 

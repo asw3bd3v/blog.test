@@ -17,7 +17,7 @@
                     @include('admin.errors')
                     <br>
                     <img src="{{$user->getAvatar()}}" alt="" class="profile-image">
-                    <form class="form-horizontal contact-form" role="form" method="post" action="/profile" enctype="multipart/form-data">
+                    <form class="form-horizontal contact-form" role="form" method="post" action="{{ route('profile.store') }}" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <div class="form-group">
                             <div class="col-md-12">
