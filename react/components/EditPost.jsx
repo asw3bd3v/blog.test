@@ -1,41 +1,54 @@
 import React, {useState} from 'react';
 import {Redirect} from "react-router-dom";
 import {Field, Form, Formik} from "formik";
-import {createPost, getPosts} from "../redux/actions/postAction";
+import {editPost, getPosts} from "../redux/actions/postAction";
 import {useDispatch} from "react-redux";
 
-const CreatePost = ({token, tags, categories}) => {
-        let defaultCategoriesId = categories.reduce((acc, curr) => acc.id < curr.id ? acc : curr);
+const EditPost = ({
+                      token,
+                      tags,
+                      categories,
+                      title,
+                      description,
+                      category,
+                      srcImage,
+                      selectedTags,
+                      preDescription,
+                      id
+                  }) => {
         const dispatch = useDispatch();
-        const [isCreate, setIsCreate] = useState(false);
+        const [isEdit, setIsEdit] = useState(false);
         return (
             <React.Fragment>
-                {isCreate && <Redirect from={'/create_post'} to="/"/>}
+                {isEdit && <Redirect from={'/create_post'} to="/"/>}
                 {!token ?
                     <Redirect from={'/login'} to="/"/>
                     :
                     <div className={'login-form'}>
-                        <h1>Создание поста</h1>
+                        <h1>Изменение поста</h1>
                         <Formik
                             initialValues={{
-                                title: '',
-                                image: '',
-                                category_id: defaultCategoriesId.id,
-                                tags: [],
-                                description: '',
-                                content: '',
+                                title: title,
+                                image: null,
+                                category_id: category,
+                                tags: selectedTags,
+                                description: preDescription,
+                                content: description,
                             }}
 
                             onSubmit={async (values) => {
-                                await new Promise((r) => setTimeout(r, 500));
+                                //await new Promise((r) => setTimeout(r, 500));
                                 let formData = new FormData();
                                 formData.append('category_id', values.category_id)
-                                formData.append('image', values.image)
+                                if (values.image !== null) {
+                                    formData.append('image', values.image)
+                                }
                                 formData.append('title', values.title)
                                 formData.append('tags', values.tags)
                                 formData.append('description', values.description)
                                 formData.append('content', values.content)
-                                dispatch(createPost(formData, setIsCreate));
+                                formData.append('_method', 'put')
+                                dispatch(editPost(formData, setIsEdit, id));
 
                             }}
                         >
@@ -45,20 +58,23 @@ const CreatePost = ({token, tags, categories}) => {
                                         <label htmlFor="title">Название</label>
                                         <Field id={'title'} name={'title'} placeholder={'Введите название'}/>
                                     </div>
-                                    <div className="form-row">
+                                    <div className="form-row form-row__img">
                                         <label htmlFor="image">Изображение</label>
                                         <input id={'image'} type={'file'} name={'image'} onChange={(event) => {
                                             setFieldValue("image", event.currentTarget.files[0]);
+                                            let fr = new FileReader();
+                                            fr.addEventListener("load", function (e) {
+                                                document.querySelector('#post-img').src = e.target.result
+                                            }, false);
+                                            fr.readAsDataURL(event.currentTarget.files[0]);
                                         }}/>
+                                        <img src={srcImage} id={'post-img'} alt=""/>
                                     </div>
                                     <div className="form-row">
                                         <label htmlFor="tags">Катергории</label>
                                         <Field id={'category_id'} as="select" name={'category_id'}>
                                             {
-                                                categories.map((category, index) => {
-                                                    // if(index === 0){
-                                                    //     return <option key={category.id} value={category.id} id={category.id}>{category.title}</option>
-                                                    // }
+                                                categories.map((category) => {
                                                     return <option key={category.id} value={category.id}
                                                                    id={category.id}>{category.title}</option>
                                                 })
@@ -91,7 +107,7 @@ const CreatePost = ({token, tags, categories}) => {
                                                placeholder={'Введите статью'}/>
                                     </div>
 
-                                    <button type={'subscribe'}>Создать</button>
+                                    <button type={'subscribe'}>Изменить</button>
                                 </Form>
                             )}
                         </Formik>
@@ -102,4 +118,4 @@ const CreatePost = ({token, tags, categories}) => {
     }
 ;
 
-export default CreatePost;
+export default EditPost;

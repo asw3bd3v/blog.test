@@ -8,14 +8,18 @@ import Registration from "../components/Registration";
 import CreatePost from "../components/CreatePost";
 import Profile from "../components/Profile";
 import {getProfile} from "../redux/actions/authAction";
+import EditPost from "../components/EditPost";
+import PostContainer from "../components/PostContainer";
 
 const Home = ({token}) => {
-    const [viewPost, setViewPost] = useState(0);
+    const [postId, setPostId] = useState(null)
+    console.log(postId)
     const posts = useSelector(({postsReducer}) => postsReducer.posts);
     const categories = useSelector(({categoriesReducer}) => categoriesReducer.categories);
     const tags = useSelector(({tagsReducer}) => tagsReducer.tags);
     const userData = useSelector(({authReducer}) => authReducer.userData);
     //const userToken = useSelector(({authReducer}) => authReducer.userData.api_token);
+    //console.log('test', posts[viewPost].tags)
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getPosts());
@@ -38,26 +42,14 @@ const Home = ({token}) => {
                                 srcImage={post.src_image}
                                 date={post.date}
                                 slug={post.slug}
-                                setIdViewPost={setViewPost}
                                 index={index}
+                                setPostId={setPostId}
                             />
                         })
                     }
 
                 </Route>
-                <Route path={'/' + posts[viewPost].slug}>
-                    <Post
-                        key={posts[viewPost].id}
-                        id={posts[viewPost].id}
-                        title={posts[viewPost].title}
-                        description={posts[viewPost].content}
-                        category={posts[viewPost].category.title}
-                        tags={posts[viewPost].tags}
-                        srcImage={posts[viewPost].src_image}
-                        date={posts[viewPost].date}
-                        slug={posts[viewPost].slug}
-                    />
-                </Route>
+                <PostContainer userId={userData.id} token={token} categories={categories} tags={tags} postId={postId}/>
                 <Route path={'/login'}>
                     <Login token={token}/>
                 </Route>
@@ -67,6 +59,7 @@ const Home = ({token}) => {
                 <Route path={'/create_post'}>
                     <CreatePost token={token} categories={categories} tags={tags}/>
                 </Route>
+
                 <Route path={'/profile'}>
                     <Profile token={token} userData={userData}/>
                 </Route>

@@ -4,9 +4,9 @@ let token = getCookie('token');
 
 const initialState = {
     userData: {
-        name: "test",
-        login: 'test',
-        email: 'test@gmail.com',
+        name: "reducer",
+        login: 'reducer',
+        email: 'reducer',
         id: 1,
         api_token: getCookie('token'),
         avatar: '',

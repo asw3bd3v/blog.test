@@ -30,7 +30,7 @@ export const logout = () => (dispatch) =>{
 export const getProfile = () => (dispatch) => {
     axios.get(`api/profile`,  {headers: {'Authorization': 'Bearer ' + getCookie('token')}})
         .then(response => {
-            console.log(response)
+            //console.log(response)
             dispatch(setLogin(response.data))
         })
 }

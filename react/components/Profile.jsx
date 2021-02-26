@@ -4,7 +4,9 @@ import {Field, Form, Formik} from "formik";
 import {putProfile} from "../redux/actions/authAction";
 
 const Profile = ({token, userData}) => {
+    console.log(userData)
     let srcAvatar = 'uploads/' + userData.avatar;
+    console.log(userData.name)
     return (
         <React.Fragment>
             {!token ?
@@ -12,11 +14,12 @@ const Profile = ({token, userData}) => {
                 :
                 <div className={'login-form'}>
                     <h1>Профиль</h1>
-                    <Formik
+                    <Formik enableReinitialize={true}
                         initialValues={{
                             name: userData.name,
+                            email: userData.email,
                             password: '',
-                            avatar: srcAvatar,
+                            avatar: null,
                         }}
 
                         onSubmit={async (values) => {
@@ -24,7 +27,9 @@ const Profile = ({token, userData}) => {
                             let formData = new FormData();
                             formData.append('name', values.name)
                             formData.append('password', values.password)
-                            formData.append('avatar', values.avatar)
+                            if (values.avatar !== null) {
+                                formData.append('avatar', values.avatar)
+                            }
                             formData.append('email', values.email)
                             formData.append('_method', 'put')
                             putProfile(userData.id, formData);
@@ -45,12 +50,17 @@ const Profile = ({token, userData}) => {
                                     <Field id={'password '} name={'password '}
                                            placeholder={'Введите новый пароль'}/>
                                 </div>
-                                <div className="form-row avatar">
+                                <div className="form-row form-row__img">
                                     <label htmlFor="avatar">Аватар</label>
                                     <input id={'avatar'} type={'file'} name={'avatar'} onChange={(event) => {
                                         setFieldValue("avatar", event.currentTarget.files[0]);
+                                        let fr = new FileReader();
+                                        fr.addEventListener("load", function (e) {
+                                            document.querySelector('#avatar-img').src = e.target.result
+                                        }, false);
+                                        fr.readAsDataURL(event.currentTarget.files[0]);
                                     }}/>
-                                    {userData.avatar && <img src={srcAvatar} />}
+                                    <img src={srcAvatar} id={'avatar-img'}/>
                                 </div>
 
                                 <button type={'subscribe'}>Изменить</button>
