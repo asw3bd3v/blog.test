@@ -32,9 +32,11 @@ Authorization Bearer API_TOKEN, где API_TOKEN - значение поля api
 
 #### Категории
 Список категорий: GET /api/categories
+Получение постов в категории: GET /api/categories/{id}/posts
 
 #### Теги
 Список тегов: GET /api/tags
+Получение постов по тегу: GET /api/tags/{id}/posts
 
 #### Пользователи
 Регистрация нового пользователя: POST /api/register  

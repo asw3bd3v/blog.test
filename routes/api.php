@@ -28,6 +28,7 @@ Route::group([
     Route::get('categories', 'CategoriesController@index');
 
     Route::get('tags', 'TagsController@index');
+    Route::get('tags/{id}/posts', 'TagsController@posts');
 });
 
 Route::group([
