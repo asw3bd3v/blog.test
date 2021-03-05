@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Post from "../components/Post";
 import {useDispatch, useSelector} from "react-redux";
-import {getCategories, getPosts, getTags} from "../redux/actions/postAction";
+import {getCategories, getChangedPosts, getPosts, getTags} from "../redux/actions/postAction";
 import {Route} from "react-router-dom";
 import Login from "../components/Login";
 import Registration from "../components/Registration";
@@ -10,19 +10,22 @@ import Profile from "../components/Profile";
 import {getProfile} from "../redux/actions/authAction";
 import EditPost from "../components/EditPost";
 import PostContainer from "../components/PostContainer";
+import Pagination from "../components/Pagination";
 
 const Home = ({token}) => {
-    const [postId, setPostId] = useState(null)
-    console.log(postId)
+    const perPage = 5;
+    const [postId, setPostId] = useState(null);
+    const [totalPosts, setTotalPosts] = useState(null)
     const posts = useSelector(({postsReducer}) => postsReducer.posts);
     const categories = useSelector(({categoriesReducer}) => categoriesReducer.categories);
     const tags = useSelector(({tagsReducer}) => tagsReducer.tags);
     const userData = useSelector(({authReducer}) => authReducer.userData);
-    //const userToken = useSelector(({authReducer}) => authReducer.userData.api_token);
-    //console.log('test', posts[viewPost].tags)
     const dispatch = useDispatch();
+    const onPageChanged = (pageNum) => {
+        dispatch(getChangedPosts(pageNum, perPage))
+    }
     useEffect(() => {
-        dispatch(getPosts());
+        dispatch(getPosts(setTotalPosts, perPage));
         dispatch(getCategories());
         dispatch(getTags());
         dispatch(getProfile());
@@ -49,7 +52,7 @@ const Home = ({token}) => {
                     }
 
                 </Route>
-                <PostContainer userId={userData.id} token={token} categories={categories} tags={tags} postId={postId}/>
+                <PostContainer userId={userData.id} token={token} categories={categories} tags={tags} postId={postId} setPostId={setPostId}/>
                 <Route path={'/login'}>
                     <Login token={token}/>
                 </Route>
@@ -63,7 +66,9 @@ const Home = ({token}) => {
                 <Route path={'/profile'}>
                     <Profile token={token} userData={userData}/>
                 </Route>
-
+                <Route exact path={'/'}>
+                    {totalPosts && <Pagination total={totalPosts} perPage={perPage} onPageChanged={onPageChanged}/>}
+                </Route>
             </div>
             <aside className="aside"></aside>
         </React.Fragment>

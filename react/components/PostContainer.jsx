@@ -5,13 +5,13 @@ import {getPost} from "../redux/actions/postAction";
 import {Route} from "react-router-dom";
 import EditPost from "./EditPost";
 
-const PostContainer = ({userId, token, categories, tags, postId}) => {
-
-
+const PostContainer = ({userId, token, categories, tags, postId, setPostId}) => {
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getPost(postId))
-    }, [])
+        if (postId) {
+            dispatch(getPost(postId))
+        }
+    }, [postId])
     const post = useSelector(({postReducer}) => postReducer.post)
     return (
         <React.Fragment>
@@ -28,6 +28,7 @@ const PostContainer = ({userId, token, categories, tags, postId}) => {
                     slug={post[0].slug}
                     userCreateId={post[0].user_id}
                     userAuthId={userId}
+                    setPostId={setPostId}
                 />
             </Route>
             <Route path={'/editPost'}>

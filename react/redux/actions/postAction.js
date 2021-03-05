@@ -1,10 +1,19 @@
 import axios from 'axios';
 import {getCookie} from "../../utils/cookie";
 
-export const getPosts = () => (dispatch) => {
-    axios.get('api/posts')
+export const getPosts = (setTotalPosts, perPage) => (dispatch) => {
+    axios.get(`api/posts?perPage=${perPage}`)
+        .then(response => {
+            //console.log(response)
+            dispatch(setPosts(response.data.data))
+            setTotalPosts(response.data.total)
+        })
+}
+export const getChangedPosts = (page, perPage) => (dispatch) => {
+    axios.get(`api/posts?page=${page}&perPage=${perPage}`)
         .then(response => {
             dispatch(setPosts(response.data.data))
+            //setTotalPosts(response.data.total)
         })
 }
 export const setPosts = (posts) => ({
