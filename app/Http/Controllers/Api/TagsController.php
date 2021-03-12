@@ -17,7 +17,7 @@ class TagsController extends Controller {
     public function posts(Request $request, $id) {
         $perPage = $request->get('perPage', 15);
         $tag = Tag::where('id', $id)->firstOrFail();
-        $posts = $tag->posts()->where('status', 1)->paginate($perPage);
+        $posts = $tag->posts()->where('status', 0)->paginate($perPage);
 
         return $posts;
     }

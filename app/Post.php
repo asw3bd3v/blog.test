@@ -127,9 +127,9 @@ class Post extends Model {
 
     public function toggleFeatured($value) {
         if ($value == null) {
-            return $this->setFeatured();
+            return $this->setStandart();
         }
-        return $this->setStandart();
+        return $this->setFeatured();
     }
 
     public function getImage() {
@@ -149,7 +149,7 @@ class Post extends Model {
         if (!$value) {
             return null;
         }
-        
+
         $date = Carbon::createFromFormat('Y-m-d', $value)->format('d/m/y');
 
         return $date;
