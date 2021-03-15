@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Post from "../components/Post";
 import {useDispatch, useSelector} from "react-redux";
-import {getCategories, getChangedPosts, getPosts, getTags} from "../redux/actions/postAction";
+import {getCategories, getChangedPosts, getPosts, getPostsByCategory, getTags} from "../redux/actions/postAction";
 import {Route} from "react-router-dom";
 import Login from "../components/Login";
 import Registration from "../components/Registration";
@@ -29,6 +29,7 @@ const Home = ({token}) => {
         dispatch(getCategories());
         dispatch(getTags());
         dispatch(getProfile());
+        dispatch(getPostsByCategory(setTotalPosts, 2, perPage))
     }, []);
     return (
         <React.Fragment>

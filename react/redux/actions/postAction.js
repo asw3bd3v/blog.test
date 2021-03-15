@@ -4,7 +4,22 @@ import {getCookie} from "../../utils/cookie";
 export const getPosts = (setTotalPosts, perPage) => (dispatch) => {
     axios.get(`api/posts?perPage=${perPage}`)
         .then(response => {
-            //console.log(response)
+            console.log('response1', response)
+            dispatch(setPosts(response.data.data))
+            setTotalPosts(response.data.total)
+        })
+}
+export const getPostsByCategory = (setTotalPosts, categoryId, perPage) => (dispatch) => {
+    axios.get(`/api/categories/${categoryId}/posts?perPage=${perPage}`, {headers: {'Authorization': 'Bearer ' + getCookie('token')}})
+        .then(response => {
+            console.log('response2', response)
+            dispatch(setPosts(response.data.data))
+            setTotalPosts(response.data.total)
+        })
+}
+export const getPostsByTags = (setTotalPosts, tagId, perPage) => (dispatch) => {
+    axios.get(`/api/tags/${tagId}/posts?perPage=${perPage}`, {headers: {'Authorization': 'Bearer ' + getCookie('token')}})
+        .then(response => {
             dispatch(setPosts(response.data.data))
             setTotalPosts(response.data.total)
         })
@@ -58,7 +73,7 @@ export const createPost = (data, setIsCreate) => (dispatch) =>{
 
     axios.post(`api/posts/store`, data, {headers: {'Authorization': 'Bearer ' + getCookie('token')}})
         .then(response => {
-            console.log(response.data.status)
+            //console.log(response.data.status)
             if(response.data.status === 1){
                 setIsCreate(true);
                 dispatch(getPosts());
@@ -66,10 +81,9 @@ export const createPost = (data, setIsCreate) => (dispatch) =>{
         })
 }
 export const editPost = (data, setIsEdit, id) => (dispatch) =>{
-    console.log(123)
     axios.post(`/api/posts/update/${id}`, data, {headers: {'Authorization': 'Bearer ' + getCookie('token')}})
         .then(response => {
-            console.log(response.data.status)
+            //console.log(response.data.status)
             if(response.data.status === 1){
                 setIsEdit(true);
                 dispatch(getPosts());
